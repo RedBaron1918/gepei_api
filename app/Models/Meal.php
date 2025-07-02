@@ -25,5 +25,6 @@ class Meal extends Model
     protected $casts = [
         'ingredients' => 'array',
         'measures' => 'array',
+        'strTags' => 'array'
     ];
 }
