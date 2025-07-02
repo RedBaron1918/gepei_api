@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +22,7 @@ class MealFactory extends Factory
         'https://www.youtube.com/watch?v=yN001XyoSas',
         'https://www.youtube.com/watch?v=S-TmmjEN-V0'
     );
+
     private $ingredientsList = ['Salt', 'Pepper', 'Tomato', 'Chicken', 'Pasta', 'Egg', 'Cheese'];
     private $measures = ['1 tsp', '2 cups', '100g', '1/2 tbsp', '3 pieces', 'lorem'];
 
@@ -32,11 +34,12 @@ class MealFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => User::factory(),
             'strMeal' => $this->faker->words(2, true),
             'strCategory' => $this->faker->randomElement(['Pasta', 'Dessert', 'Seafood', 'Chicken']),
             'strArea' => $this->faker->randomElement(['Italian', 'Mexican', 'American', 'Chinese']),
             'strInstructions' => $this->faker->paragraphs(2, true),
-            'strMealThumb' =>  Storage::url('meals/default.jpg'),
+            'strMealThumb' => Storage::url('meals/default.jpg'),
             'strTags' => $this->faker->words(3),
             'strYoutube' => $this->generateRandomArray($this->cookingVideos),
             'ingredients' => $this->generateRandomArray($this->ingredientsList, count($this->ingredientsList)),
@@ -44,7 +47,6 @@ class MealFactory extends Factory
             'strSource' => $this->faker->url(),
         ];
     }
-
 
     private function generateRandomArray(array $pool, ?int $max = null)
     {

@@ -20,6 +20,7 @@ class Meal extends Model
         'ingredients',
         'measures',
         'strSource',
+        'user_id',
     ];
 
     protected $casts = [
@@ -27,4 +28,9 @@ class Meal extends Model
         'measures' => 'array',
         'strTags' => 'array'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
